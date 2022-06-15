@@ -1,5 +1,5 @@
-public class test2 {
+public class test{
     public static void main(String[] args){
-    System.out.println("Helo, Java! It's me, Mario!");   
+        System.out.println("Hello, Java! It's me, Mario!");
     }
 }
