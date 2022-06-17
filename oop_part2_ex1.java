@@ -76,8 +76,25 @@ class worm {
             weight = w_weight;
     }
 
-    
+    //метод класса "червячок" - остановка
+    void stop(){
+        speed = 0;
+    }
 
+    //метод класса "червячок" - ходьба
+    void walk(){
+        speed = 5;
+    }
+
+    //метод класса "червячок" - поднял аптечку
+    void pickAid (int healthPercentage){ //healthPercentage - величина % здоровья с аптечки
+        health += healthPercentage;
+    }
+
+    //метод класса "червячок" - падение с высоты
+    void fallDamage(){
+        health -= 5;
+    }
 }
 
 public class oop_part2_ex1 {
@@ -87,6 +104,12 @@ public class oop_part2_ex1 {
         handWeapon pistol = new handWeapon(100, 1, 5, 5, 25, 70, "manual", 2);
         handWeapon shotgun = new handWeapon(60, 10, 2, 2, 10, 30, "manual", 5);
         handWeapon uzi = new handWeapon(90, 30, 30, 30, 150, 900, "automatic", 3);
+
+        //создание объектов класса "червячок"
+        worm worm1 = new worm("Ванька", "ЦРУ-шники", 100, 0, "rus",
+                              "eyeGrave", 2, 2, 10);
+        worm worm2 = new worm("Женька", "КГБ-шники", 100, 0, "rus",
+                              "classicGrave", 2, 2, 10);
 
         //подняли 2 ящика с патронами для дробовика
         int crates = 2;
@@ -109,5 +132,16 @@ public class oop_part2_ex1 {
                            + "Всего патронов на пистолет осталось - " + pistol.roundsTotal);
 
         System.out.println("При полной загрузке на старте у нас " + uzi.roundsTotal / uzi.roundsInMagazine + " обойм на узи");
+
+        System.out.println("Шел здоровый червячок по имени " + worm1.name + " со здоровьем - " + worm1.health);
+        worm1.fallDamage();
+        System.out.println("Совершив неверный прыжок, наш червячок по имени " + worm1.name 
+                          + " сорвался вниз и шмякнулся о землю с большой высоты. Потирая бока, червяк увидел, что здоровье теперь " 
+                          + worm1.health + " единиц.");
+
+        worm2.walk();
+        worm2.pickAid(50);
+        System.out.println("Тем временем червяк " + worm2.name + " из вражеской команды c особым цинизмом развил скорость " 
+                          + worm2.speed + " и подобрал аптечку, став червём с " + worm2.health + " ед. здоровья.");
     }
 }
