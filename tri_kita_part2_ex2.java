@@ -1,5 +1,3 @@
-import java.util.SortedMap;
-
 //описание класса "Подводные суда"
 class UnderWaterVessel {
     private int depthOfImmersion; //глубина погружения
@@ -70,20 +68,21 @@ class DroneUW extends UnderWaterVessel {
         if (isIRsensor = true) System.out.println("ИК - режим активирован!");
     }
 
+    @Override //переопределение метода foo()
     public void foo() {
         System.out.println("Метод foo для класса DroneUW");
     }
 }
 
 //описание класса "Боевая подлодка", который является потомком класса "Подводные суда"
-class BattleSubmarine extends UnderWaterVessel {
+class BattleSubm extends UnderWaterVessel {
     private int torpedoesMax; //максимальное число торпед
     private int bombMax; //максимальное число бомб
     private int sonarRange; //зона действия сонара в метрах
     private String model; //модель подлодки
 
     //описание параметризированного конструктора для класса
-    BattleSubmarine(int depthOfImmersion, int autonomyHours, int displacement, int radiusOfOperation,
+    BattleSubm(int depthOfImmersion, int autonomyHours, int displacement, int radiusOfOperation,
                     int torpedoesMax, int bombMax, int sonarRange, String model) {
         super(depthOfImmersion, autonomyHours, displacement, radiusOfOperation);
         this.torpedoesMax = torpedoesMax;
@@ -112,6 +111,7 @@ class BattleSubmarine extends UnderWaterVessel {
         System.out.println("Бомба установлена!");
     }
 
+    @Override //переопределение метода foo()
     public void foo(){
         System.out.println("Метод foo для класса BattleSubmarine");
     }
@@ -119,6 +119,23 @@ class BattleSubmarine extends UnderWaterVessel {
 
 public class tri_kita_part2_ex2 {
     public static void main(String args[]) {
+        //создаем массив объектов fleet родительского класса UnderWaterVessel
+        UnderWaterVessel[] fleet = new UnderWaterVessel[500];
 
+        //заполняем массив либо дронами либо подводными лодками
+        for (int i = 0; i < fleet.length; i++) {
+            int count = (int)(Math.random()*(3 - 1)) + 1; //генерируем рандомное целое число - 1 или 2
+
+            if (count == 1) { fleet[i] = new DroneUW(500, 10, 500, 500, "дрон" + i, 
+                1000, true); } //если выпало число 1 - создаем объект от DroneUW
+            if (count == 2) { fleet[i] = new BattleSubm(3000, 1000, 5000, 50000,
+                20, 10, 15000, "sub_n" + i); } //если выпало число 2 - создаем объект от BattleSubmarine
+        }
+
+        //берем 10 элементов массива и выводим результат метода foo() для каждого элемента
+        //хоть метод и один на всех, но у каждого потомка он переопределен, поэтому значения разные
+        for (int i = 0; i < 10; i++) {
+            fleet[i].foo(); //вызов метода foo() потомков класса
+        }
     }
 }
