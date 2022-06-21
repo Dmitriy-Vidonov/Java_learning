@@ -139,3 +139,17 @@ public class tri_kita_part2_ex2 {
         }
     }
 }
+
+/*РЕЗУЛЬТАТ РАБОТЫ ПРОГРАММЫ
+
+ Метод foo для класса DroneUW
+Метод foo для класса BattleSubmarine
+Метод foo для класса BattleSubmarine
+Метод foo для класса BattleSubmarine
+Метод foo для класса DroneUW
+Метод foo для класса BattleSubmarine
+Метод foo для класса DroneUW
+Метод foo для класса DroneUW
+Метод foo для класса DroneUW
+Метод foo для класса BattleSubmarine
+*/
