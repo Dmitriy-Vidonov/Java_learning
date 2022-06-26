@@ -1,4 +1,4 @@
-import filepathconst; //подключаем файл с контантой - путь до файлов
+import filepathconst; //подключаем файл с конcтантой - путь до файлов
 import java.io.File;
 import java.nio.file.*;
 import java.util.List;
