@@ -1,0 +1,8 @@
+июл. 02, 2022 7:33:23 PM StringGen trying to generate strings
+SEVERE: exception - java.lang.Exception: some exception from StringGen
+июл. 02, 2022 7:33:23 PM StringGen trying to generate strings
+SEVERE: exception - java.lang.Exception: some exception from StringGen
+июл. 02, 2022 7:33:23 PM SubStrMethod Check arrays length
+SEVERE: Exception - java.lang.Exception: some exception from SubStrMethod
+июл. 02, 2022 7:33:23 PM Main trying to generate strings and get results
+SEVERE: Exception - java.lang.Exception: some exception from main
