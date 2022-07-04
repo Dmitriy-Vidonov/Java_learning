@@ -5,69 +5,49 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class SubStrMethod { //класс - поиск подстроки
+
     private static Logger logSubStrMethod = Logger.getLogger(SubStrMethod.class.getName()); //логгер для текущего класса
-    public static Boolean searchMethod(String s1, String s2) throws IOException {  //метод поиска подстроки
+
+    static Boolean searchMethod (String str1, String str2) throws IOException {
+
         //подключение файла настроек логгера
         LogManager.getLogManager().readConfiguration(SubStrMethod.class.getResourceAsStream("logging.properties"));
 
-        if (s1 == null || s2 == null) return false;
+        boolean res = false;
 
-        char[] arrayS1 = s1.toCharArray(); //массив для исходной строки
-        char[] arrayS2 = s2.toCharArray(); //массив для подстроки
+        if (str1 == null || str2 == null) return false;
 
         try { //попытка проверить длины массивов
-            if (arrayS1.length != 0 && arrayS2.length == 0) {
-                assert arrayS1.length > 0; //проверка что длина первого массива оказалась больше 0
+            if (str1.length() != 0 && str2.length() == 0) {
+                assert str1.length() > 0; //проверка что длина первого массива оказалась больше 0
+                return true;
+            } else if (str1.length() == 0 && str2.length() != 0) {
+                assert str2.length() > 0; //проверка что длина второго массива оказалась больше 0
+                return false;
+            } else if (str1.length() == 0 && str2.length() == 0) {
                 return true;
             }
-            else if (arrayS1.length == 0 && arrayS2.length != 0) {
-                assert arrayS2.length > 0; //проверка что длина второго массива оказалась больше 0
-                return false;
-            }
-            else if (arrayS1.length == 0 && arrayS2.length == 0) { return true; }
-            //throw new Exception("some exception from SubStrMethod");
+
         } catch (Exception ex) { //в случае исключение мы его логируем
             logSubStrMethod.logp(Level.SEVERE, "SubStrMethod", "Check arrays length",
-                        "Exception - " + ex);
+                    "Exception - " + ex);
         }
 
-        boolean equal = true;
-
-        try { //попытка просчета цикла с вложенным циклом
-            for(int i = 0; i < (s1.length() - s2.length()); i++) {
-                equal = true;
-                assert i < s1.length() - s2.length() && i >= 0; //проверка что i лежит в нужном диапазоне
-                try { //попытка просчета вложенного цикла
-                    for(int j = 0; j < s2.length(); j++) {
-                        assert j < s2.length() && j >= 0; //проверка что j лежит в нужном диапазоне
-                        if(arrayS2[j] != arrayS1[i + j]) {
-                            equal = false;
-                            break;
-                        }
+            for (int i = 0; i < str1.length(); i++) { //цикл по всему базовому тексту
+                int j = 0; //переменная j указывает текущую позицию внутри образца
+                    while (j < str2.length() && i + j < str1.length() && str2.charAt(j) == str1.charAt(i + j)) { //до тех пор, пока мы не вышли за границы подстроки - sample
+                        j++;                                                      //а также если мы не вышли за границы текста
+                        //и если текущие символы в образце и тексте равны
                     }
-                } catch (Exception ex1) { //в случае исключения при работе вложенного цикла - ловим исключение в лог
-                    logSubStrMethod.logp(Level.SEVERE, "SubStrMethod", "Checking inner loop if substring exist in main string",
-                            "Exception - " + ex1);
-                }
-
-                try { //попытка определения состояния переменной equal
-                    if(equal == true) {
-                        assert equal = Boolean.parseBoolean("true"); //проверка является ли equal типом boolean
-                        return equal;
-                    }
-                } catch (Exception ex2) { //в случае возникновения исключения при проверке equal - пишем это в лог
-                    logSubStrMethod.logp(Level.SEVERE, "SubStrMethod", "Checking variable equal", "Exception - " + ex2);
+                if (j == str2.length()) {
+                    res = true;
                 }
             }
-        } catch (Exception exc) { //в случае исключения при работе основного цикла - ловим исключение в лог
-            logSubStrMethod.logp(Level.SEVERE, "SubStrMethod", "Checking outer loop if substring exist in main string",
-                    "Exception - " + exc);
-        }
 
-        assert equal = Boolean.parseBoolean("true"); //проверка является ли equal типом boolean
-        return false;
+        return res;
     }
 }
+
 
 //StringGen.java
 import java.io.IOException;
@@ -97,7 +77,6 @@ public class StringGen {
                     str.append(c);
                 }
             }
-            //throw new Exception("some exception from StringGen");
         } catch (Exception ex) {
             logStringGen.logp(Level.SEVERE, "StringGen", "trying to generate strings", "exception - " + ex);
         }
@@ -115,6 +94,7 @@ import java.util.logging.Logger;
 
 public class Main {
     private static Logger logMain = Logger.getLogger(Main.class.getName()); //логгер для текущего класса
+
     public static void main(String[] args) throws IOException {
 
         LogManager.getLogManager().readConfiguration(Main.class.getResourceAsStream("logging.properties"));
@@ -126,12 +106,12 @@ public class Main {
 
             SubStrMethod subSearch = new SubStrMethod();
             System.out.println(subSearch.searchMethod(str1, str2));
-            //System.out.println(subSearch.searchMethod("", ""));
+            System.out.println(subSearch.searchMethod("", ""));
             System.out.println(subSearch.searchMethod(str1, null));
-            //throw new Exception("some exception from main");
         } catch (Exception ex) {
             logMain.logp(Level.SEVERE, "Main", "trying to generate strings and get results",
                     "Exception - " + ex);
         }
     }
 }
+
