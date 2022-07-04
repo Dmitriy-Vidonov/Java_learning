@@ -25,7 +25,7 @@ public class SubStrMethodTest {
         for (int i = 0; i < 10000; i++) {
             String str1 = StringGen.generator((int)((Math.random() * (50 - 10) + 1) + 10));
             String str2 = StringGen.generator((int)(Math.random() * 5));
-            Assert.assertEquals(str1.contains(str2), SubStrMethod.searchMethod(str1, str2));
+            assert (str1.contains(str2) == SubStrMethod.searchMethod(str1, str2)) : "main string - " + str1 + ", substring - " + str2;
         }
     }
 
