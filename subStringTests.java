@@ -23,13 +23,13 @@ public class SubStrMethodTest {
      @Test
      public void randomTest() throws Exception {
              for (int i = 0; i < 10000; i++) {
-                 String stroka1 = StringGen.generator((int)((Math.random() * (50 - 10) + 1) + 10));
-                 String stroka2 = StringGen.generator((int)(Math.random() * 5));
+                 String text = StringGen.generator((int)((Math.random() * (50 - 10) + 1) + 10));
+                 String example = StringGen.generator((int)(Math.random() * 5));
                  try{
-                     Assert.assertEquals("Expect that str1 = " + stroka1 + " contains stroka2 = "
-                             + stroka2, stroka1.contains(stroka2), SubStrMethod.searchMethod(stroka1, stroka2));
+                     Assert.assertEquals("Expect that str1 = " + text + " contains str2 = "
+                             + example, text.contains(example), SubStrMethod.searchMethod(text, example));
                  }  catch (Exception ex) {
-                     Assert.fail("Expect that str1 = " + stroka1 + " contains str2 = " + stroka2);
+                     Assert.fail("Expect that str1 = " + text + " contains str2 = " + example);
                  }
              }
      }
