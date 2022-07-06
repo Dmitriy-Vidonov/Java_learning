@@ -21,12 +21,16 @@ public class SubStrMethodTest {
 
     //random values test
     @Test
-    public void randomTest() throws IOException {
+    public void randomTest() throws Exception {
+        try{
             for (int i = 0; i < 10000; i++) {
                 String str1 = StringGen.generator((int)((Math.random() * (50 - 10) + 1) + 10));
                 String str2 = StringGen.generator((int)(Math.random() * 5));
                 Assert.assertEquals("Expect that str1 = " + str1 + " contains str2 = " + str2, str1.contains(str2), SubStrMethod.searchMethod(str1, str2));
             }
+        } catch (Exception ex) {
+           Assert.fail("Expect that str1 = " + str1 + " contains str2 = " + str2);
+        }
     }
 
     //test with null values
