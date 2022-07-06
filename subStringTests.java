@@ -19,20 +19,21 @@ public class SubStrMethodTest {
                 SubStrMethod.searchMethod("avangardnaya", "vanga"));
     }
 
-     //random values test
-     @Test
-     public void randomTest() throws Exception {
-             for (int i = 0; i < 10000; i++) {
-                 String text = StringGen.generator((int)((Math.random() * (50 - 10) + 1) + 10));
-                 String example = StringGen.generator((int)(Math.random() * 5));
-                 try{
-                     Assert.assertEquals("Expect that str1 = " + text + " contains str2 = "
-                             + example, text.contains(example), SubStrMethod.searchMethod(text, example));
-                 }  catch (Exception ex) {
-                     Assert.fail("Expect that str1 = " + text + " contains str2 = " + example);
-                 }
-             }
-     }
+    //random values test
+    @Test
+    public void randomTest() throws Exception {
+        for (int i = 0; i < 10000; i++) {
+            String text = StringGen.generator((int)((Math.random() * (50 - 10) + 1) + 10));
+            String example = StringGen.generator((int)(Math.random() * 5));
+            boolean res = SubStrMethod.searchMethod(text, example);
+            try{
+                Assert.assertEquals("Expect that str1 = " + text + " contains str2 = "
+                        + example, text.contains(example), res);
+            }  catch (Exception ex) {
+                Assert.fail();
+            }
+        }
+    }
 
     //test with null values
     @Test
