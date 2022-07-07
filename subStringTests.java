@@ -23,15 +23,15 @@ public class SubStrMethodTest {
     @Test
     public void randomTest() throws Exception {
         for (int i = 0; i < 10000; i++) {
-            String text = StringGen.generator((int)((Math.random() * (50 - 10) + 1) + 10));
-            String example = StringGen.generator((int)(Math.random() * 5));
-            boolean res = SubStrMethod.searchMethod(text, example);
-            try{
-                Assert.assertEquals("Expect that str1 = " + text + " contains str2 = "
-                        + example, text.contains(example), res);
-            }  catch (Exception ex) {
-                Assert.fail();
+            String text = StringGen.generator((int) ((Math.random() * (50 - 10) + 1) + 10));
+            String example = StringGen.generator((int) (Math.random() * 5));
+            try {
+                SubStrMethod.searchMethod(text, example);
+            } catch (Exception ex) {
+                Assert.fail("Error of searchMethod. Expect that main string " + text + " will have substring " + example + ", but failed");
             }
+            Assert.assertEquals("Expect that str1 = " + text + " contains str2 = " + example,
+                    text.contains(example), SubStrMethod.searchMethod(text, example));
         }
     }
 
