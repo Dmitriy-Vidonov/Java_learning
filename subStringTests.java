@@ -1,42 +1,42 @@
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.jupiter.api.RepeatedTest;
 import java.io.IOException;
+import static org.junit.Assert.assertEquals;
 
-public class SubStrMethodTest {
+class SubStrMethodTest {
 
     static String str1;
     static String str2;
 
-    @Before
-    public void setUp() throws IOException {
+    @org.junit.jupiter.api.BeforeEach
+    void setUp() throws IOException {
         str1 = StringGen.generator(1000);
         str2 = StringGen.generator(10);
     }
 
     //regression test
-    @Test
+    @org.junit.jupiter.api.Test
     public void regressionTest() throws IOException {
-        Assert.assertEquals("substring - vanga is in string - avangardnaya", true,
+        assertEquals("substring - vanga is in string - avangardnaya", true,
                 SubStrMethod.searchMethod("avangardnaya", "vanga"));
     }
 
     //random values test
-    @Test
+    @RepeatedTest(10000)
     public void randomTest() throws Exception {
-        for (int i = 0; i < 10000; i++) {
-            String text = StringGen.generator((int) ((Math.random() * (50 - 10) + 1) + 10));
-            String example = StringGen.generator((int) (Math.random() * 5));
-            try {
-                SubStrMethod.searchMethod(text, example);
-            } catch (Exception ex) {
-                Assert.fail("Error of searchMethod. Expect that main string " + text + " will have substring " + example + ", but failed");
-            }
-            Assert.assertEquals("Expect that str1 = " + text + " contains str2 = " + example,
-                    text.contains(example), SubStrMethod.searchMethod(text, example));
+        String text = StringGen.generator((int) ((Math.random() * (50 - 10) + 1) + 10));
+        String example = StringGen.generator((int) (Math.random() * 5));
+        try {
+            SubStrMethod.searchMethod(text, example);
+        } catch (Exception ex) {
+            Assert.fail("Error of searchMethod!!!. Expect that main string " + text + " will have substring " + example + ", but failed");
         }
+        Assert.assertEquals("Expect that str1 = " + text + " contains str2 = " + example,
+                text.contains(example), SubStrMethod.searchMethod(text, example));
     }
 
     //test with null values
-    @Test
+    @org.junit.jupiter.api.Test
     public void nullTest() throws IOException {
         Assert.assertFalse("expect that null has no substring", SubStrMethod.searchMethod(null, str2));
         Assert.assertFalse("expect that there is no null in string", SubStrMethod.searchMethod(str1, null));
@@ -44,29 +44,10 @@ public class SubStrMethodTest {
     }
 
     //empty values test
-    @Test
+    @org.junit.jupiter.api.Test
     public void emptyTest() throws IOException {
-        Assert.assertEquals("expecting that empty substring is in string", SubStrMethod.searchMethod(str1, ""), true);
-        Assert.assertEquals("expecting that substring can't be inside empty string", SubStrMethod.searchMethod("", str2), false);
-        Assert.assertEquals("expecting that empty substring can be in empty string", SubStrMethod.searchMethod("", ""), true);
+        assertEquals("expecting that empty substring is in string", SubStrMethod.searchMethod(str1, ""), true);
+        assertEquals("expecting that substring can't be inside empty string", SubStrMethod.searchMethod("", str2), false);
+        assertEquals("expecting that empty substring can be in empty string", SubStrMethod.searchMethod("", ""), true);
     }
 }
-
-/* Результаты тестов
--------------------------------------------------------
- T E S T S
--------------------------------------------------------
-Running SubStrMethodTest
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.166 sec
-
-Results :
-
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
-
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  5.875 s
-[INFO] Finished at: 2022-07-05T13:24:26+03:00
-[INFO] ------------------------------------------------------------------------
- */
