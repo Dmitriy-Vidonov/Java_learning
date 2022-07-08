@@ -1,7 +1,10 @@
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.Assert.fail;
 
 class SubStrMethodTest {
 
@@ -17,37 +20,35 @@ class SubStrMethodTest {
     //regression test
     @org.junit.jupiter.api.Test
     public void regressionTest() throws IOException {
-        assertEquals("substring - vanga is in string - avangardnaya", true,
-                SubStrMethod.searchMethod("avangardnaya", "vanga"));
+        Assertions.assertEquals(true, SubStrMethod.searchMethod("avangardnaya", "vanga"), "substring - vanga is in string - avangardnaya");
     }
 
     //random values test
-    @RepeatedTest(10000)
+    @RepeatedTest(1000)
     public void randomTest() throws Exception {
         String text = StringGen.generator((int) ((Math.random() * (50 - 10) + 1) + 10));
         String example = StringGen.generator((int) (Math.random() * 5));
         try {
             SubStrMethod.searchMethod(text, example);
         } catch (Exception ex) {
-            Assert.fail("Error of searchMethod!!!. Expect that main string " + text + " will have substring " + example + ", but failed");
+            Assertions.fail("Error of searchMethod!!!. Expect that main string " + text + " will have substring " + example + ", but failed");
         }
-        Assert.assertEquals("Expect that str1 = " + text + " contains str2 = " + example,
-                text.contains(example), SubStrMethod.searchMethod(text, example));
+        Assertions.assertEquals(text.contains(example), SubStrMethod.searchMethod(text, example), "Expect that str1 = " + text + " contains str2 = " + example);
     }
 
     //test with null values
     @org.junit.jupiter.api.Test
     public void nullTest() throws IOException {
-        Assert.assertFalse("expect that null has no substring", SubStrMethod.searchMethod(null, str2));
-        Assert.assertFalse("expect that there is no null in string", SubStrMethod.searchMethod(str1, null));
-        Assert.assertFalse("expect no matches with nulls", SubStrMethod.searchMethod(null, null));
+        Assertions.assertFalse(SubStrMethod.searchMethod(null, str2), "expect that null has no substring");
+        Assertions.assertFalse(SubStrMethod.searchMethod(str1, null), "expect that there is no null in string");
+        Assertions.assertFalse(SubStrMethod.searchMethod(null, null), "expect no matches with nulls");
     }
 
     //empty values test
     @org.junit.jupiter.api.Test
     public void emptyTest() throws IOException {
-        assertEquals("expecting that empty substring is in string", SubStrMethod.searchMethod(str1, ""), true);
-        assertEquals("expecting that substring can't be inside empty string", SubStrMethod.searchMethod("", str2), false);
-        assertEquals("expecting that empty substring can be in empty string", SubStrMethod.searchMethod("", ""), true);
+        Assertions.assertEquals(SubStrMethod.searchMethod(str1, ""), true, "expecting that empty substring is in string");
+        Assertions.assertEquals(SubStrMethod.searchMethod("", str2), false, "expecting that substring can't be inside empty string");
+        Assertions.assertEquals(SubStrMethod.searchMethod("", ""), true, "expecting that empty substring can be in empty string");
     }
 }
