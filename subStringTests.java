@@ -71,7 +71,7 @@ class SubStrMethodTest {
             OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
             System.out.println("System CPU load: " + operatingSystemMXBean.getSystemLoadAverage());
 
-            Assertions.fail("Too much time for long strign test with system timeout!");
+            Assertions.fail("Too much time for long string test with system timeout!");
         }
     }
 
