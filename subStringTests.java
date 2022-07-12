@@ -49,12 +49,7 @@ class SubStrMethodTest {
     @DisplayName(" - long string test with jUnit timeout - ( ಠ ʖ̯ ಠ )")
     @Timeout(value = 1000, unit = TimeUnit.MILLISECONDS)
     public void longStringTestJunit() throws IOException {
-    try {
         SubStrMethod.searchMethod(longString, subStr);
-    }
-    catch (Exception ex) {
-        System.out.println("Long string test error - " + ex);
-    }
     }
 
     //long string test with system timeout
@@ -62,23 +57,23 @@ class SubStrMethodTest {
     @DisplayName(" - long string test with system timeout [¬º-°]¬")
     public void longStringTestSystem() throws Exception{
         long currTime = java.lang.System.currentTimeMillis();
-        try {
             SubStrMethod.searchMethod(longString, subStr);
-        } catch (Exception ex) {
-            System.out.println("Exception in long string test with system timeout - " + ex);
-        }
         long currTime2 = java.lang.System.currentTimeMillis();
 
-            if (currTime2 - currTime > 50) {
-                System.out.println("OS: " + System.getProperty("os.name") + "\nVersion: " + System.getProperty("os.version") +
-                        "\nArchitecture: " + System.getProperty("os.arch"));
-                System.out.println("Available processors (cores): "
-                        + Runtime.getRuntime().availableProcessors());
+        try{
+            Assertions.assertTrue(currTime2 - currTime < 50);
+        } catch (AssertionError ex) {
+            System.out.println("OS: " + System.getProperty("os.name") + "\nVersion: " + System.getProperty("os.version") +
+                    "\nArchitecture: " + System.getProperty("os.arch"));
+            System.out.println("Available processors (cores): "
+                    + Runtime.getRuntime().availableProcessors());
 
-                OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
-                System.out.println("System CPU load: " + operatingSystemMXBean.getSystemLoadAverage());
-            }
+            OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
+            System.out.println("System CPU load: " + operatingSystemMXBean.getSystemLoadAverage());
+
+            Assertions.fail("Too much time for long strign test with system timeout!");
         }
+    }
 
     //test with null values
     @org.junit.jupiter.api.Test
