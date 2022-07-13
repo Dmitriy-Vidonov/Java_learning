@@ -14,13 +14,20 @@ class SubStrMethodTest {
     static String str2;
     String longString;
     String subStr;
+    String systemConf;
 
-    @org.junit.jupiter.api.BeforeEach
+    @org.junit.jupiter.api.BeforeEach //конструктор - задаем начальные значения перед проведением тестов
     void setUp() throws IOException {
         str1 = StringGen.generator(1000);
         str2 = StringGen.generator(10);
         longString = StringGen.generator(10000000);
         subStr = StringGen.generator(5);
+        OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
+        systemConf = "OS: " + System.getProperty("os.name")
+                + "\nVersion: " + System.getProperty("os.version")
+                + "\nArchitecture: " + System.getProperty("os.arch")
+                + "\nAvailable processors (cores): " + Runtime.getRuntime().availableProcessors()
+                + "\nSystem CPU load: " + operatingSystemMXBean.getSystemLoadAverage();
     }
 
     //regression test
@@ -57,22 +64,12 @@ class SubStrMethodTest {
     @DisplayName(" - long string test with system timeout [¬º-°]¬")
     public void longStringTestSystem() throws Exception{
         long currTime = java.lang.System.currentTimeMillis();
-            SubStrMethod.searchMethod(longString, subStr);
+        SubStrMethod.searchMethod(longString, subStr);
         long currTime2 = java.lang.System.currentTimeMillis();
 
-        try{
-            Assertions.assertTrue(currTime2 - currTime < 50);
-        } catch (AssertionError ex) {
-            System.out.println("OS: " + System.getProperty("os.name") + "\nVersion: " + System.getProperty("os.version") +
-                    "\nArchitecture: " + System.getProperty("os.arch"));
-            System.out.println("Available processors (cores): "
-                    + Runtime.getRuntime().availableProcessors());
-
-            OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
-            System.out.println("System CPU load: " + operatingSystemMXBean.getSystemLoadAverage());
-
-            Assertions.fail("Too much time for long string test with system timeout!");
-        }
+        Assertions.assertTrue(currTime2 - currTime < 50,
+                "Method(testing long string with system time) is out of time! " +
+                        "\nHere are the system configuration: \n" + systemConf);
     }
 
     //test with null values
