@@ -1,3 +1,4 @@
+import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
@@ -72,21 +73,32 @@ class SubStrMethodTest {
                         "\nHere are the system configuration: \n" + systemConf);
     }
 
-    //test with null values
-    @org.junit.jupiter.api.Test
-    @DisplayName(" - test with null values - (⊙_⊙)")
-    public void nullTest() throws IOException {
-        Assertions.assertFalse(SubStrMethod.searchMethod(null, str2), "expect that null has no substring");
-        Assertions.assertFalse(SubStrMethod.searchMethod(str1, null), "expect that there is no null in string");
-        Assertions.assertFalse(SubStrMethod.searchMethod(null, null), "expect no matches with nulls");
-    }
-
     //empty values test
     @org.junit.jupiter.api.Test
     @DisplayName(" - empty values test - ( ੭ ･ᴗ･ )੭")
     public void emptyTest() throws IOException {
-        Assertions.assertEquals(SubStrMethod.searchMethod(str1, ""), true, "expecting that empty substring is in string");
-        Assertions.assertEquals(SubStrMethod.searchMethod("", str2), false, "expecting that substring can't be inside empty string");
-        Assertions.assertEquals(SubStrMethod.searchMethod("", ""), true, "expecting that empty substring can be in empty string");
+        try {
+            SubStrMethod.searchMethod(str1, "");
+        } catch (Exception ex) {
+            System.out.println("Error while trying found empty substring in the string");
+        }
+        Assertions.assertEquals(SubStrMethod.searchMethod(str1, ""), str1.contains(""),
+                "expecting that empty substring is in string");
+
+        try {
+            SubStrMethod.searchMethod("", str2);
+        } catch (Exception ex) {
+            System.out.println("Error while trying found not empty substring in the empty string");
+        }
+        Assertions.assertEquals(SubStrMethod.searchMethod("", str2), "".contains(str2),
+                "expecting that substring can't be inside empty string");
+
+        try {
+            SubStrMethod.searchMethod("", "");
+        } catch (Exception ex) {
+            System.out.println("Error while trying found empty substring in the empty string");
+        }
+        Assertions.assertEquals(SubStrMethod.searchMethod("", ""), "".contains(""),
+                "expecting that empty substring can be in empty string");
     }
 }
