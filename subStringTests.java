@@ -85,5 +85,5 @@ class SubStrMethodTest {
 
         Assertions.assertEquals(SubStrMethod.searchMethod("", ""), "".contains(""),
                 "expecting that empty substring can be in empty string");
-     }
+    }
 }
