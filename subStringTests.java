@@ -77,27 +77,12 @@ class SubStrMethodTest {
     @org.junit.jupiter.api.Test
     @DisplayName(" - empty values test - ( ੭ ･ᴗ･ )੭")
     public void emptyTest() throws IOException {
-        try {
-            SubStrMethod.searchMethod(str1, "");
-        } catch (Exception ex) {
-            System.out.println("Error while trying found empty substring in the string");
-        }
         Assertions.assertEquals(SubStrMethod.searchMethod(str1, ""), str1.contains(""),
                 "expecting that empty substring is in string");
-
-        try {
-            SubStrMethod.searchMethod("", str2);
-        } catch (Exception ex) {
-            System.out.println("Error while trying found not empty substring in the empty string");
-        }
+        
         Assertions.assertEquals(SubStrMethod.searchMethod("", str2), "".contains(str2),
                 "expecting that substring can't be inside empty string");
 
-        try {
-            SubStrMethod.searchMethod("", "");
-        } catch (Exception ex) {
-            System.out.println("Error while trying found empty substring in the empty string");
-        }
         Assertions.assertEquals(SubStrMethod.searchMethod("", ""), "".contains(""),
                 "expecting that empty substring can be in empty string");
     }
