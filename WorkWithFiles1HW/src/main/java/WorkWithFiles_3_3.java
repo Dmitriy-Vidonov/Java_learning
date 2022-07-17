@@ -22,8 +22,7 @@ class Cat{ //прописали класс Cat
 }
 public class WorkWithFiles_3_3 {
     public static void catReader() throws IOException {
-        File myCatsFile = new File("/home/dima/Рабочий стол/Java/1 - Шилдт/Github/idea_projects/WorkWithFiles1HW/"
-                + "cats.txt");
+        File myCatsFile = new File("./././cats.txt");
             BufferedReader buffReader = new BufferedReader(new FileReader(myCatsFile));
             try {
                 String str = buffReader.readLine();
