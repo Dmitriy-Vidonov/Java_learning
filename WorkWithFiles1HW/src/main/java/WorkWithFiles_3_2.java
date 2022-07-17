@@ -18,7 +18,6 @@ public class WorkWithFiles_3_2 {
                 st = br.readLine();
                 stringsControl += 1;
             }
-            assert stringsControl == 3 : "file" + filePath + arr[i] + ".txt" + " has incorrect amount of only digit strings: " + stringsControl;
         } catch(Exception ex) {
             System.out.println("Error in (while loop) of SumOf6 method! Wrong string = " + st);
         }
@@ -26,6 +25,9 @@ public class WorkWithFiles_3_2 {
             br.close();
         }
     }
+    assert stringsControl == 3 : "file" + filePath + arr[i] + ".txt" 
+    + " has incorrect amount of only digit strings: " + stringsControl;
+    
         return sum;
     }
 }
