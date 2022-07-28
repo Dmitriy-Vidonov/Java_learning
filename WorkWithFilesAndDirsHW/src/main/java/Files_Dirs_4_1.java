@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Files_Dirs_4_1 {
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
         //Печать всех подкаталогов текущего каталога до глубины вложенности 10
         File root = new File("."); //задаем "отправную точку" в пути до папок - текущую директорию
         ArrayList<File> expand = new ArrayList<>(); //expand - динамический массив с "путями" до каталогов
@@ -20,7 +20,5 @@ public class Files_Dirs_4_1 {
                 }
             }
         }
-
-
-    } */
+    }
 }
