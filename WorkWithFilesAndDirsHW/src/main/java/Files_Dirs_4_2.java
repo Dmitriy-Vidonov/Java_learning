@@ -11,8 +11,25 @@ public class Files_Dirs_4_2 {
         ArrayList<File> subDirFilesList = new ArrayList<>(); //в список занесли список файлов
         ArrayList<File> subDirsList = new ArrayList<>(); //в список занесли список каталогов
 
-        subDirFilesList.addAll(List.of(root.listFiles((directory, name) -> name.endsWith(extens))));
-        subDirsList.addAll(List.of(root.listFiles((directory) -> directory.isDirectory())));
+        try {
+            for (File subDirFilesLoop : root.listFiles(File::isFile)) {
+                if (subDirFilesLoop.getName().contains(extens)) {
+                    subDirFilesList.addAll(List.of(subDirFilesLoop));
+                } else if (extens == "*.*") {
+                    subDirFilesList.addAll(List.of(subDirFilesLoop));
+                }
+            }
+        } catch (NullPointerException nullEx) {
+            System.err.println("There is NullpointerEx while trying to find files with mask - " + nullEx);
+        } catch (Exception ex) {
+            System.err.println("There is an error while trying to find files with mask - " + ex);
+        }
+
+        try {
+            subDirsList.addAll(List.of(root.listFiles((directory) -> directory.isDirectory())));
+        } catch (Exception ex) {
+            System.err.println("An exception while trying to find subdirectory - " + ex);
+        }
 
         if (flag == true) { //ищем файлы в подкаталогах и подподкаталоги
             for (File fileLoop : root.listFiles((directory) -> directory.isDirectory())) {
@@ -42,5 +59,9 @@ public class Files_Dirs_4_2 {
         finalPrint.add(listOfStringDirs);
 
         return finalPrint;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(filesNdirs("./test_dir", "*.*", false));
     }
 }

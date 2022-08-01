@@ -9,9 +9,9 @@ public class Test_Files_Dirs {
 
     public static void main(String[] args) throws IOException {
 
-        String path = "."; //указание адреса папки
-        String extens = ".xml"; //маска для поиска расширения
-        boolean flag = true; //флажок
+        String path = "./test_dir"; //указание адреса папки
+        String extens = "*.*"; //".xml"; //маска для поиска расширения
+        boolean flag = false;//true; //флажок
 
         File root = new File(path); //задали первичный адрес
        // File[] findFiles = root.listFiles((directory, name) -> name.endsWith(extens)); //в массив занесли список файлов
@@ -20,7 +20,23 @@ public class Test_Files_Dirs {
         ArrayList<File> subDirFilesList = new ArrayList<>(); //в список занесли список файлов
         ArrayList<File> subDirsList = new ArrayList<>(); //в список занесли список каталогов
 
-        subDirFilesList.addAll(List.of(root.listFiles((directory, name) -> name.endsWith(extens))));
+        try {
+            for (File subDirFilesLoop : root.listFiles(File::isFile)) {
+                if (subDirFilesLoop.getName().contains(extens)) {
+                    subDirFilesList.addAll(List.of(subDirFilesLoop));
+                } else if (extens == "*.*") {
+                    subDirFilesList.addAll(List.of(subDirFilesLoop));
+                }
+            }
+        } catch (NullPointerException nullEx) {
+            System.err.println("There is NullpointerEx while trying to find files with mask - " + nullEx);
+        } catch (Exception ex) {
+            System.err.println("There is an error while trying to find files with mask - " + ex);
+        }
+
+        //добавление в список происходит лишь в случае существования файла
+        //subDirFilesList.addAll(List.of(root.listFiles((directory, name) -> name.endsWith(extens))));
+
         subDirsList.addAll(List.of(root.listFiles((directory) -> directory.isDirectory())));
         // subDirFilesList.addAll(Arrays.asList(findFiles));
         //  subDirsList.addAll(Arrays.asList(findDirs));
