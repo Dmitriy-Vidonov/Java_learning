@@ -1,10 +1,13 @@
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -63,6 +66,35 @@ public class Java_Stream_API {
         //9. Создание бесконечного стрима с помощью Stream.generate
         Stream<String> streamFromGenerate = Stream.generate(() -> "a1");
 
+        //РАБОТА СО СТРИМАМИ
+        System.out.println("Start stream madness!");
 
+        //Создание стрима из значений
+        Stream<String> streamFromValues1 = Stream.of("a1", "a2", "a3");
+        //напечатает streamFromValues = [a1, a2, a3]
+        System.out.println("streamFromValues = " + streamFromValues1.collect(Collectors.toList()));
+
+        //Создание стрима из массива
+        String[] ArrayStr = {"a1", "a2", "a3"};
+        Stream<String> streamFromArrayStr = Arrays.stream(ArrayStr);
+        //напечатает streamFromArrayStr = [a1, a2, a3]
+        System.out.println("streamFromArrayStr = " + streamFromArrayStr.collect(Collectors.toList()));
+
+        Stream<String> streamFromArrays1 = Stream.of(ArrayStr);
+        //напечатает streamFromArrays1 = [a1, a2, a3]
+        System.out.println("streamFromArrays1 = " + streamFromArrays1.collect(Collectors.toList()));
+
+        //Создание стрима из файла (каждая запись в файле будет отдельной строкой в стриме)
+        File file1 = new File("output.tmp");
+        file1.deleteOnExit(); //удаление файла при остановке виртуальной машины java
+        PrintWriter out = new PrintWriter(file1);
+        out.println("a1");
+        out.println("a2");
+        out.println("a3");
+        out.close();
+
+        Stream<String> streamFromFile1 = Files.lines(Paths.get(file1.getAbsolutePath()));
+        //напечатает streamFromFiles = [a1, a2, a3]
+        System.out.println("streamFromFile1 = " + streamFromFile1.collect(Collectors.toList()));
     }
 }
