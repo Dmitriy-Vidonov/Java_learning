@@ -61,7 +61,7 @@ public class arch_test_2 {
             ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream("test2.zip"));
 
             //файл для добавления в создаваемый архив
-            String file = "test5.txt"; //имя файла, который будем добавлять в архив
+            String file = "pom.xml"; //имя файла, который будем добавлять в архив
             ZipEntry zipEntry = new ZipEntry(file); //создание нового zipEntry с именем file
 
             //добавляем новую сущность (заголовок) в архив
