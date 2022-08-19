@@ -80,5 +80,15 @@ public class Test {
         for (String i : people.keySet()) {
             System.out.println("ключ: " + i + " | значение: " + people.get(i));
         }
+
+        //Проверка на наличие в словаре значения
+        System.out.println(people.containsValue(35)); //true
+
+        //Проверка на наличрие в словаре ключа
+        System.out.println(people.containsKey("Vanya")); //true
+
+        //Удаление элемента из словаря
+        people.remove("Дермидонт Валерьяныч");
+        System.out.println(people);
     }
 }
