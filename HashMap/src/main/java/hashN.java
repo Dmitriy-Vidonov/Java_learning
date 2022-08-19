@@ -6,28 +6,27 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class hashN {
     public static ArrayList<Integer> hashN(ArrayList<Integer> arrList, int N){
+        //задаем итоговый список для вывода результата работы метода
         ArrayList<Integer> finList = new ArrayList<>();
-        try {
-            for (int i=0; i<100; i++) {
-                arrList.add(ThreadLocalRandom.current().nextInt(1, 10 + 1));
-            }
-            HashMap<Integer, Integer> hashM = new HashMap<>();
-
-            for(Integer counter : arrList) {
-                if (!hashM.containsKey(counter)) {
-                    hashM.put(counter, 1);
-                } else {
-                    hashM.put(counter, hashM.get(counter) + 1);
+            try{
+                //задаем словарь для хранения числа вхождений элементов в список
+                HashMap<Integer, Integer> hashM = new HashMap<>();
+                for(Integer counter : arrList) {
+                    if (!hashM.containsKey(counter)) { //если элемента еще нет в словаре - добавляем пару со значением 1
+                        hashM.put(counter, 1);
+                    } else { //если элемент уже есть в словаре - обновляем текущее значение на 1
+                        hashM.put(counter, hashM.get(counter) + 1);
+                    }
                 }
-            }
-            for (Map.Entry<Integer, Integer> searchKeys: hashM.entrySet()) {
-                if (searchKeys.getValue() >= N) {
-                    finList.add(searchKeys.getKey());
+                //задаем цикл по entrySet() для проверки всех элементов словаря
+                for (Map.Entry<Integer, Integer> searchKeys: hashM.entrySet()) {
+                    if (searchKeys.getValue() >= N) { //если значение соответствует условию,
+                        finList.add(searchKeys.getKey()); //получаем ключ пары
+                    }
                 }
+            } catch (Exception ex) {
+                System.out.println("Exception during work with hashmap - " + ex);
             }
-        } catch (Exception ex) {
-            System.out.println("Exception during hashmap operations - " + ex);
-        }
         return finList;
     }
     public static void main(String[] args) {
@@ -36,6 +35,7 @@ public class hashN {
         for (int i=0; i<100; i++) {
             arrInt.add(ThreadLocalRandom.current().nextInt(1, 10 + 1));
         }
+
         System.out.println(Arrays.asList(hashN(arrInt, 10)));
     }
 }
