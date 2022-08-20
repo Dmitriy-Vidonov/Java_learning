@@ -13,7 +13,7 @@ public class Test2 {
             arrInt.add(ThreadLocalRandom.current().nextInt(1, 10 + 1));
         }
         System.out.println(Arrays.asList(arrInt)); //вывели содержимое списка на экран
-        int N = 1;
+        int N = 10;
 
         HashMap<Integer, Integer> hashM = new HashMap<>(); //создали словарь для хранения карты значений
         /*смотрим - есть ли уже такой ключ, какой мы хотим добавить. если нет - добавляем со значением 1
@@ -22,14 +22,14 @@ public class Test2 {
         ArrayList<Integer> finList = new ArrayList<>();
 
         for(Integer counter : arrInt) {
-            if (!hashM.containsKey(counter) && N > 1) {
+            if (!hashM.containsKey(counter) /*&& N >= 1*/) {
                 hashM.put(counter, 1);
             }
-            if (!hashM.containsKey(counter) && N == 1) {
+           /* if (!hashM.containsKey(counter) && N == 1) {
                 hashM.put(counter, 1);
-                finList.add(counter);
-            }
-            if (hashM.containsKey(counter)) {
+                //finList.add(counter);
+            }*/
+            else {
                 value = hashM.get(counter) + 1;
                 hashM.put(counter, value);
                 if (value >= N && !finList.contains(counter)) {
