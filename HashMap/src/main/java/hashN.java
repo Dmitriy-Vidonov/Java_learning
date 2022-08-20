@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class hashN {
@@ -11,17 +10,21 @@ public class hashN {
             try{
                 //задаем словарь для хранения числа вхождений элементов в список
                 HashMap<Integer, Integer> hashM = new HashMap<>();
+                int value = 1;
                 for(Integer counter : arrList) {
-                    if (!hashM.containsKey(counter)) { //если элемента еще нет в словаре - добавляем пару со значением 1
+                    if (!hashM.containsKey(counter) && N > 1) {
                         hashM.put(counter, 1);
-                    } else { //если элемент уже есть в словаре - обновляем текущее значение на 1
-                        hashM.put(counter, hashM.get(counter) + 1);
                     }
-                }
-                //задаем цикл по entrySet() для проверки всех элементов словаря
-                for (Map.Entry<Integer, Integer> searchKeys: hashM.entrySet()) {
-                    if (searchKeys.getValue() >= N) { //если значение соответствует условию,
-                        finList.add(searchKeys.getKey()); //получаем ключ пары
+                    if (!hashM.containsKey(counter) && N == 1) {
+                        hashM.put(counter, 1);
+                        finList.add(counter);
+                    }
+                    if (hashM.containsKey(counter)) {
+                        value = hashM.get(counter) + 1;
+                        hashM.put(counter, value);
+                        if (value >= N && !finList.contains(counter)) {
+                            finList.add(counter);
+                        }
                     }
                 }
             } catch (Exception ex) {
