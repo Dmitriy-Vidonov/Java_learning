@@ -3,8 +3,6 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
@@ -14,14 +12,14 @@ public class CreateExcel {
         int N=10;
         int totalRowsCount = 100;
         String excelName = "workbook.xlsx";
+
+        //Создание книги Excel
+        XSSFWorkbook book = new XSSFWorkbook();
+        FileOutputStream fileout = new FileOutputStream(excelName);
+
+        //Создание страницы
+        XSSFSheet sheet = book.createSheet("Sheet 1");
         try {
-            //Создание книги Excel
-            XSSFWorkbook book = new XSSFWorkbook();
-            FileOutputStream fileout = new FileOutputStream(excelName);
-
-            //Создание страницы
-            XSSFSheet sheet = book.createSheet("Sheet 1");
-
             int rowsCount;
             //Создаем строки от 1 до 100. заполняем их значениями из массива
             for (rowsCount = 0; rowsCount < totalRowsCount; rowsCount++) {
@@ -65,13 +63,14 @@ public class CreateExcel {
             System.out.println("An error during create excel file - " + ex);
         }
         //считать данные из последнего столбца формул и занести его в массив
+        ArrayList<Integer> resultList = new ArrayList<>();
         try{
-            
-
-
+            for(int j=totalRowsCount; j<totalRowsCount+10; j++) {
+                resultList.add(book.getSheetAt(0).getRow(j).getCell(3).getCachedFormulaResultType());
+            }
         } catch (Exception ex) {
             System.out.println("Error during reading xlsx file - " + ex);
         }
-
+        System.out.println("Final list = " + resultList);
     }
 }
