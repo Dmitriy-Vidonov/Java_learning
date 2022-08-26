@@ -62,15 +62,4 @@ public class CreateExcel {
             System.err.println("Error during creating Excel template file - " + ex);
         }
     }
-/*
-    public static void main(String[] args) throws Exception {
-        String name = "tryit.xlsx";
-        int lowerLimit = 1;
-        int upperLimit = 10;
-        int rowsCount = 100;
-        int range = (upperLimit-lowerLimit)+1;
-        int N = 10;
-        ArrayList <Integer> numsList = new ArrayList<Integer>(ListGen.generateList(lowerLimit, upperLimit,rowsCount));
-        generateTemplate(numsList, name,range,N);
-    } */
 }
