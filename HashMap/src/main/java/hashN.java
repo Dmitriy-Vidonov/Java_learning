@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class hashN {
@@ -23,6 +24,7 @@ public class hashN {
                         }
                     }
                 }
+                Collections.sort(finList);
             } catch (Exception ex) {
                 System.out.println("Exception during work with hashmap - " + ex);
             }
