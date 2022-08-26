@@ -12,7 +12,7 @@ public class CreateExcel {
                                   int numsRange, //Диапазон генерируемых значений в списке. сколько разных чисел там будет
                                   int N //Проверяемое число вхождений
      ) {
-        try { //finList = numList   excelName = templateName
+        try {
             //Создание книги Excel
             XSSFWorkbook book = new XSSFWorkbook();
             FileOutputStream fileout = new FileOutputStream(templateName);
