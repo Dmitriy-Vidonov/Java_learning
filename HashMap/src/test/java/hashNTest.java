@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class hashNTest {
 
-    //Regression test
+    //Repeated test
     @RepeatedTest(100)
     @DisplayName("Repeated test")
     void repeatedTest() throws Exception {
