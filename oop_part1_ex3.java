@@ -1,5 +1,3 @@
-import javax.smartcardio.CardTerminal;
-
 class cat { //создали простой класс "кот"
     int age;
     int weight;
